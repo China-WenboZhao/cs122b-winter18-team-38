@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="icon.ico">
+    <title>NextDimension-Movies</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/album.css" rel="stylesheet">
+  </head>
+
+<body class="bg-light">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Next-Dimension</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="Home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+             <a class="nav-link" href="Search.html">Search <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="Browsing.html">Explore <span class="sr-only">(current)</span></a>
+            </li>
+            
+          </ul>
+           <form class="form-inline mt-2 mt-md-0">    
+            <button class="btn btn-primary" type="button" onclick="window.location.href='Cart.html'">Checkout</button>  
+          </form>
+        </div>
+      </nav>
+    </header>
+    
+  <!--    <div class=" jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Result</h1>
+           <p class="lead text-muted"></p>     
+          </div>
+    </div> -->
+    <br>
+    <br>
+    <br>
+          
+      
+
+    <div class="container marketing">   
+    
+    <button  id="sort"   type="button" class="btn btn-primary  btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by &nbsp;</button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" onclick="sort(event)" href="#">Year: early to late</a>
+			    <a class="dropdown-item" onclick="sort(event)" href="#">Year: late to early</a>
+			    <a class="dropdown-item" onclick="sort(event)" href="#">Title: a to z</a>
+			    <a class="dropdown-item" onclick="sort(event)" href="#">Title: z to a</a> 
+			</div>
+    
+    <hr class="featurette-divider">
+
+	<script type="text/javascript" src="js/jQuery.min.js"></script>
+	<script type="text/javascript" src="js/Movielist.js"></script>
+	<script>  ajaxrequest(); </script>
+	<div id="movielist"></div>
+
+</div>
+<!-- pagination part -->
+	<div>
+		<table style="text-align:left;  margin:30px auto 30px">
+			<tr id="mytable">
+				<td><a id="0" onclick="doPage(event)" href="#">Prev</a></td>
+				<td><a id="1" onclick="doPage(event)" href="#">1</a></td>
+				<td><a id="2" onclick="doPage(event)" href="#">2</a></td>
+				<td><a id="3" onclick="doPage(event)" href="#">3</a></td>
+				<td><a id="4" onclick="doPage(event)" href="#">4</a></td>
+				<td><a id="5" onclick="doPage(event)" href="#">5</a></td>
+				<td><a id="6" onclick="doPage(event)" href="#">6</a></td>
+				<td><a id="7" onclick="doPage(event)" href="#">7</a></td>
+				<td><a id="8" onclick="doPage(event)" href="#">Next</a></td>
+			</tr>
+		</table>
+	
+	</div>
+		
+	<div >
+		<p id="Total_Pages" style="margin:0 auto">1</p>
+		<p id="Current_Page" style="margin:0 auto">1</p>
+	</div>
+	
+	<script>
+		function doPage(event) {
+			event.preventDefault();
+			let page;
+			if($(event.target).attr("id")!= "0" & $(event.target).attr("id")!= "8"){
+				 page = $(event.target).html();
+			}else if($(event.target).attr("id") == "0"){
+				page = Number.parseInt($("#Current_Page").html()) - 1;
+			}else if($(event.target).attr("id")== "8"){
+				page = Number.parseInt($("#Current_Page").html()) + 1;
+			}
+				
+			let tdArr = $("#mytable").children();
+			console.log( (2 * Number.parseInt($(event.target).html()) - Number.parseInt($(tdArr[4]).children(':first').html())) );
+			
+			if(Number.parseInt($(event.target).attr("id")) == "0"){
+				for (let i = 0; i < tdArr.length; i++) {
+					if(i!=0 & i!=8){
+						var temp = Number.parseInt($(tdArr[i]).children(':first').html());
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (temp-1) );
+						$(tdArr[i]).children(':first').html(""+ (temp - 1)  );
+					}else if(i == 0){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page-1) );
+					}else if(i == 8){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page+1) );
+					}
+				}
+			}else if(Number.parseInt($(event.target).attr("id")) == "8"){
+				for (let i = 0; i < tdArr.length; i++) {
+					if(i!=0 & i!=8){
+						temp = Number.parseInt($(tdArr[i]).children(':first').html());
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (temp+1) );
+						$(tdArr[i]).children(':first').html(""+ (temp + 1)  );
+					}else if(i == 0){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page-1) );
+					}else if(i == 8){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page+1) );
+					}
+				}
+			}else if ( Number.parseInt($(event.target).html()) <= 4) {
+				for (let i = 0; i < tdArr.length; i++) {
+					if(i!=0 & i!=8){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ i );
+						$(tdArr[i]).children(':first').html(""+ i );
+					}else if(i == 0){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page-1) );
+					}else if(i == 8){
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page+1) );
+					}
+				}
+			}else{
+				//other variables are dependent with the target variable 
+				$(event.target).attr('href',"Movie_List.html/?page="+ (2 * Number.parseInt($(event.target).html()) - Number.parseInt($(tdArr[4]).children(':first').html())));
+				$(event.target).html(""+ (2 * Number.parseInt($(event.target).html()) - Number.parseInt($(tdArr[4]).children(':first').html())));	
+			
+				for (let i = 0; i < tdArr.length; i++) {
+					if (i != 0 & i != 8 & i!= $(event.target).attr("id") ) {
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+  (Number.parseInt($(event.target).html())+ (i-$(event.target).attr("id")))  );
+						$(tdArr[i]).children(':first').html(""+ (Number.parseInt($(event.target).html())+ (i-$(event.target).attr("id")))  );
+					}else if (i == 0) {
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page-1) );
+					} else if (i == 8) {
+						$(tdArr[i]).children(':first').attr('href',"Movie_List.html/?page="+ (page+1) );
+					}
+				}
+			}
+			
+			$("#Current_Page").html(""+page);
+			let url = window.location.href;
+			let parameters = GetRequestPara();
+			if(parameters['page']==null){
+				if(url.substr(url.length-4,4)=="html"){
+					window.history.replaceState(null,null,url+"?page=" + page);
+					
+				}else{
+					window.history.replaceState(null,null,url+"&page=" + page);
+				}
+			}else{
+				//use regular expression to match numbers
+				url= url.replace(/page=[0-9]*/,"page="+page);
+				window.history.replaceState(null,null,url);
+			}
+			
+			
+			//window.history.replaceState(null,null,"Movie_List.html?page=" + page);
+		  // 调用Movielist.js, 发送ajax请求并更改页面
+		 	$("#movielist").children().remove();
+			ajaxrequest();
+			return false;
+		}
+		
+		function sort(event){
+			event.preventDefault();
+			let url = window.location.href;
+			let parameters = GetRequestPara();
+			let sort;
+			if($(event.target).html()=="Year: early to late"){
+				sort = "yearasc";
+			}else if($(event.target).html()=="Year: late to early"){
+				sort = "yeardesc";
+			}else if($(event.target).html()=="Title: a to z"){
+				sort = "titleasc";
+			}else if($(event.target).html()=="Title: z to a"){
+				sort = "titledesc";
+			}
+			
+			if(parameters['sort']==null){
+				if(url.substr(url.length-4,4)=="html"){
+					window.history.replaceState(null,null,url+"?sort=" + sort);
+					
+				}else{
+					window.history.replaceState(null,null,url+"&sort=" + sort);
+				}
+			}else{
+				//use regular expression to match numbers
+				url= url.replace(/sort=[a-z]*/,"sort="+sort);
+				console.log("url:"+url);
+				window.history.replaceState(null,null,url);
+			}
+			$("#movielist").children().remove();
+			ajaxrequest();
+			return false;
+		}
+	</script>
+
+
+	<!-- FOOTER -->
+      <footer id="footer" class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2017-2018 Next-Diemsnion Company, Inc. &middot; </p>
+      </footer>
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="js/holder.min.js"></script> 
+
+
+</body>
+</html>

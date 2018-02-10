@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login to NDmovie</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/logo.jpg">
+    
+   <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="text-center">
+
+     <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Next-Dimension</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="Home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+             <a class="nav-link" href="Search.html">Search <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="Browsing.html">Explore <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          
+          
+        </div>
+      </nav>
+    </header>
+
+   <form class="form-signin" id="login_form" method="post" action="#">
+	<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+	<!-- Set the method to POST to avoid username/password showing on URL
+		 Disable the default action because our JS function will handle it. -->
+
+	    <label class="sr-only"><b>Username</b></label>
+	    <input type="text" class="form-control" placeholder="Enter Username" name="username" required autofocus>
+	  
+		
+	    <label class="sr-only"><b>Password</b></label>
+	    <input type="password" class="form-control" placeholder="Enter Password" name="password">
+
+	
+	<div id="login_error_message"></div>
+	
+	<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Sign in</button>
+	<!-- include jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- include our own JS file -->
+	<script type="text/javascript" src="js/login.js"></script>
+	<p class="mt-5 mb-3 text-muted">&copy; Next-Dimension Movie 2018</p>
+	</form>
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/icon.jpg">
+
+    <title>Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/form-validation.css" rel="stylesheet">
+  </head>
+
+  <body class="bg-light">
+  
+  <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Next-Dimension</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="Home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+             <a class="nav-link" href="Search.html">Search <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="Browsing.html">Explore <span class="sr-only">(current)</span></a>
+            </li>
+            
+          </ul>
+          <form class="form-inline mt-2 mt-md-0">    
+            <button class="btn btn-primary" type="button" onclick="window.location.href='Checkout.html'">Checkout</button>  
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <br>
+        <br>
+        <h2>Search form</h2>
+        <p class="lead">Welcome to NDmovie's most powerful title search. Using the options below you can combine a variety of the types of information we catalog to create extremely specific searches.</p>
+      </div>
+
+      <div class="row d-flex justify-content-center"  >
+ 
+        <div class="col-md-8 order-md-1">    
+          <h4 class="mb-3">Title</h4>
+          <div class="mb-3">
+              <input type="text" class="form-control" id="title" placeholder="eg. Interstellar">
+            </div>
+          
+          <h4 class="mb-3">Year</h4>
+          <div class="mb-3"> 
+              <input type="text" class="form-control" id="year" placeholder="eg. 2014">
+            </div>
+            
+          <h4 class="mb-3">Director</h4>
+          <div class="mb-3"> 
+              <input type="text" class="form-control" id="director" placeholder="eg. Christopher Nolan">
+            </div>
+            
+          <h4 class="mb-3">Star's Name</h4>
+          <div class="mb-3"> 
+              <input type="text" class="form-control" id="star_name" placeholder="eg. Matthew McConaughey">
+            </div>  
+            
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="GetInput()">Search</button>
+   
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 Next-Diemsnion Company, Inc.</p>
+        
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.slim.min.js" ></script>
+    <script src="js/jQuery.min.js" ></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/holder.min.js"></script>
+    <script type="text/javascript">
+    		function GetInput(){
+    			let url="Movie_List.html";
+    			let title = $("#title").val();
+    			let year = $("#year").val();
+    			let director = $("#director").val();
+    			let star_name = $("#star_name").val();
+
+    			let i=0;
+    			if(title){
+    				url= url+"?title="+title+"&"
+    				i++;
+    			}
+    			if(year){
+    				if(i>0){
+    					url= url+"year="+year+"&"
+    				}else{
+    					url= url+"?year="+year+"&"
+    				}
+    				i++;
+    				
+    			}
+    			if(director){
+    				if(i>0){
+    					url= url+"director="+director+"&"
+    				}else{
+    					url= url+"?director="+director+"&"
+    				}
+    				i++;
+    			}
+    			if(star_name){
+    				if(i>0){
+    					url= url+"star_name="+star_name+"&"
+    				}else{
+    					url= url+"?star_name="+star_name+"&"
+    				}
+    				i++;
+    			}
+    			
+    			if(url.substr(url.length-1,1)=="&"){
+    				url=url.substring(0,url.length-1);
+    			}
+    			//console.log("url"+url);
+    			window.location.href=url; 
+    		}
+    
+    </script>
+    
+  </body>
+</html>
