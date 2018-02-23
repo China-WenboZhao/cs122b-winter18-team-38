@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="images/icon.jpg">
+
+<title>DashBorad</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/form-validation.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href=" ">Next-Dimension</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarCollapse" aria-controls="navbarCollapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="Home.html">Home <span class="sr-only">(current)</span></a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="Search.html">Search <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active"><a class="nav-link"
+						href="Browsing.html">Explore <span class="sr-only">(current)</span></a>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container">
+
+		<div class="py-5 text-center">
+			<br> <br>
+
+			<h2>Add Stars</h2>
+			<p class="lead">Insert a new star by providing name and birthYear</p>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">Name</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="name"
+						placeholder="eg. Keanu Charles Reeves">
+				</div>
+
+				<h4 class="mb-3">birthYear</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="year"
+						placeholder="eg. 2014">
+				</div>
+
+				<p id="starresult_status"></p>
+				<hr class="mb-4">
+				<button class="btn btn-primary btn-lg btn-block" type="submit"
+					onclick="addstar()">Insert</button>
+
+			</div>
+		</div>
+
+		<div class="py-5 text-center">
+			<br> <br>
+			<h2>Metadata of the Database</h2>
+			<p class="lead" id="metadata"></p>
+
+			<button class="btn btn-primary btn-lg btn-block" type="submit"
+				onclick="showmeta()">Show Meta Data</button>
+
+		</div>
+
+
+
+
+		<div class="py-5 text-center">
+			<br> <br>
+
+			<h2>Add More Features to Movie</h2>
+			<p class="lead"></p>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+
+			<div class="col-md-8 order-md-1">
+
+				<h4 class="mb-3">Movie Title</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="title"
+						placeholder="eg. Star War">
+				</div>
+
+				<h4 class="mb-3">Year</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="movieyear"
+						placeholder="eg. Star War">
+				</div>
+
+				<h4 class="mb-3">Director</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="director"
+						placeholder="eg. Star War">
+				</div>
+
+				<h4 class="mb-3">Star name</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="star_name"
+						placeholder="eg. Keanu Charles Reeves">
+				</div>
+
+				<h4 class="mb-3">Star birth year</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="birth_year"
+						placeholder="eg. Keanu Charles Reeves">
+				</div>
+
+				<h4 class="mb-3">Related to Genre</h4>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="genre"
+						placeholder="eg. Thriller">
+				</div>
+				<p id="result_status"></p>
+
+
+				<hr class="mb-4">
+				<button class="btn btn-primary btn-lg btn-block" type="submit"
+					onclick="addmovie()">Add</button>
+
+			</div>
+		</div>
+
+		<footer class="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1">&copy; 2017-2018 Next-Diemsnion Company, Inc.</p>
+
+		</footer>
+	</div>
+
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/jQuery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/holder.min.js"></script>
+	<script type="text/javascript">
+    		function addmovie(){
+    			let title = $("#title").val();
+    			let year = $("#movieyear").val();
+    			let director = $("#director").val();
+    			let star_name = $("#star_name").val();
+    			let birth_year = $("#birth_year").val();
+    			let genre = $("#genre").val();
+    			
+    			let info = {
+    					title: title,
+    					movieyear: year,
+    					director: director,
+    					star_name: star_name,
+    					birth_year: birth_year,
+    					genre: genre
+    			}
+    			
+    			console.log(info)
+    			
+    			$.ajax({
+
+    				type : "GET",
+
+    				url : "/Movie_Website/DashBoard",
+
+    				data : info,
+
+    				dataType : "json", 
+
+    				success : function(value) {
+    						$("#result_status").html(value.status);
+    					}
+    					
+    				
+    			});
+    			
+    		}
+    		
+    		
+    		function addstar(){
+    			let name = $("#name").val();
+    			let year = $("#year").val();
+    			
+    			let info = {
+    					name: name,
+    					year: year,
+    					
+    			}
+    			
+    			$.ajax({
+
+    				type : "GET",
+
+    				url : "/Movie_Website/adds",
+
+    				data : info,
+
+    				dataType : "json", 
+
+    				success : function(value) {
+    						$("#starresult_status").html(value.status);
+    					}
+    					
+    				
+    			});
+    			
+    		}
+    		
+    		
+    		function showmeta(){
+    			
+    			
+    			var info = {
+    			}
+    			
+    			$.ajax({
+
+    				type : "GET",
+
+    				url : "/Movie_Website/metadata",
+
+    				data : info,
+
+    				dataType : "json", 
+
+    				success : function(value) {
+    				//	console.log(JSON.stringify(value));
+    					
+    					for(let i = 0 ; i < value.length ; i++) {
+    						$("#metadata").append(value[i].Name);
+    						$("#metadata").append(`<br>Field: [ ${value[i].Field.join(', ')} ]<br>`);
+    						$("#metadata").append(`Type: [ ${value[i].Type.join(', ')} ]<br>`);
+    						$("#metadata").append(`Null: [ ${value[i].Null.join(', ')} ]<br>`);
+    						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
+    						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
+    						$("#metadata").append(`Extra: [ ${value[i].Extra.join(', ')} ]<br>`);
+    						$("#metadata").append('-----<br>');
+    						
+    						
+    					/*	console.log(value[i].Name);
+    						console.log(`Field: [ ${value[i].Field.join(', ')} ]`);
+    						console.log(`Type: [ ${value[i].Type.join(', ')} ]`);
+    						console.log(`Null: [ ${value[i].Null.join(', ')} ]`);
+    						console.log(`Key: [ ${value[i].Key.join(', ')} ]`);
+    						console.log(`Default: [ ${value[i].Default.join(', ')} ]`);
+    						console.log(`Extra: [ ${value[i].Extra.join(', ')} ]`);
+    						console.log('-----');*/
+    					}
+    					
+    					
+    					for(let i=0; i< value.length;i++)
+    					{
+    						
+    					}	
+    				}
+    					
+    				
+    			});
+    			
+    		}
+    		
+
+    		
+    
+    </script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
