@@ -18,7 +18,7 @@ function ajaxrequest(){
 		request['page'] = "1";
 	}
 	if(request['sort']==null){
-		request['sort'] = "yearasc";
+		request['sort'] = "null";
 	}
 
 	let parameter = {
@@ -47,9 +47,13 @@ function ajaxrequest(){
 
 		success : function(value) {
 
-			// console.log(value);
+			 console.log(value);
 			for(var i=0; i< value.length;i++)
 			{
+				let stars =``;
+				for(let j=0;j<value[i].stars.length;j++){
+					stars=stars+`<a onclick="stardetails(event)" href="#">${value[i].stars[j]}</a>，`;
+				}
 				
 				$('#movielist').append(`
 				<div class="row featurette">
@@ -57,11 +61,14 @@ function ajaxrequest(){
                <img class="featurette-image img-fluid mx-auto" src="images/2.jpg" width="280" height="280"   alt="Generic placeholder image">
                </div>
                <div class="col-md-7 order-md-2">
-               <h2 class="featurette-heading"><font size="2" face="Verdana">Title:&nbsp&nbsp  <a onclick="moviedetails(event)" href="#">${value[i].title}</a><br><span class="text-muted">ID:&nbsp&nbsp${value[i].movieid}<br>
-               Year:&nbsp&nbsp${value[i].year}<br>Director:&nbsp&nbsp${value[i].director}<br>Stars:&nbsp&nbsp${value[i].stars}<br>Genres:&nbsp&nbsp${value[i].genres}<br> 
-				RATE:&nbsp&nbsp${(value[i].rate).toFixed(1)}
-                <br>
-				Price:  &nbsp&nbsp $15.99<br>
+               <h2 class="featurette-heading"><font size="2" face="Verdana">Title:&nbsp&nbsp  <a onclick="moviedetails(event)" href="#">${value[i].title}</a><br><span class="text-muted">
+               ID:&nbsp&nbsp${value[i].movieid}<br>
+               Year:&nbsp&nbsp${value[i].year}<br>Director:&nbsp&nbsp${value[i].director}
+               <br>Stars:&nbsp&nbsp
+               ${stars}
+               <br>Genres:&nbsp&nbsp${value[i].genres}
+               <br> RATE:&nbsp&nbsp${(value[i].rate).toFixed(1)}
+               <br>Price:  &nbsp&nbsp $15.99<br>
 				<br>
 				</h2>
 				<button type="button" class="btn btn-primary btn-lg " onclick="add_to_cart('${value[i].movieid}','${value[i].title}')" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
@@ -70,7 +77,6 @@ function ajaxrequest(){
             </div>
 
 			<hr class="featurette-divider">
-				
 				`);
 				$('#Total_Pages').html("Total Pages: "+value[0].total_pages);
 				let tdArr = $("#mytable").children();
@@ -142,19 +148,28 @@ function add_to_cart(movieid,title){
 function moviedetails(event){
 	
 	event.preventDefault();
+//	let title = $(event.target).html();
+//	url= "Movie_List.html?title_first_character="+title;
+//	console.log(url);
+//	window.history.replaceState(null,null,url);
+//	$("#movielist").children().remove();
+//	ajaxrequest();
+//    
+//	$("#mytable").css('display','none');
+//	$("#Total_Pages").css('display','none');
+//	$("#Current_Page").css('display','none');
+//	$("#sort").css('display','none');
+//	$("#footer").css('display','none');
 	let title = $(event.target).html();
-	url= "Movie_List.html?title_first_character="+title;
-	console.log(url);
-	window.history.replaceState(null,null,url);
-	$("#movielist").children().remove();
-	ajaxrequest();
-    
-	$("#mytable").css('display','none');
-	$("#Total_Pages").css('display','none');
-	$("#Current_Page").css('display','none');
-	$("#sort").css('display','none');
-	$("#footer").css('display','none');
+	url= "MoviePage.html?title_first_character="+title;
+	window.location.href=url;
 }
 
+function stardetails(event){
+	event.preventDefault();
+	let star_name = $(event.target).html();
+	url= "StarPage.html?star_name="+star_name;
+	window.location.href=url;
+}
 
 

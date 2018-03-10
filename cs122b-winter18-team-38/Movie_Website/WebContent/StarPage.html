@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="icon.ico">
+<title>NextDimension-Movies</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/cover.css" rel="stylesheet">
+<title>Star details</title>
+</head>
+
+
+<body class="bg-light">
+	<header>
+	<script type="text/javascript" src="js/jQuery.min.js"></script>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="#">Next-Dimension</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarCollapse" aria-controls="navbarCollapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="Home.html">Home <span class="sr-only">(current)</span></a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="Search.html">Search <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active"><a class="nav-link"
+						href="Browsing.html">Explore <span class="sr-only">(current)</span></a>
+					</li>
+
+				</ul>
+				<form class="form-inline mt-2 mt-md-0">
+					<button class="btn btn-primary" type="button"
+						onclick="window.location.href='Cart.html'">Checkout</button>
+				</form>
+			</div>
+		</nav>
+	</header>
+	<br>
+	<br>
+	<br>
+
+
+	<!-- Marketing messaging and featurettes
+      ================================================== -->
+	<!-- Wrap the rest of the page in another container to center all the content. -->
+
+
+
+ <div class="text-center">
+        <h1>Detailed Star Information</h2>      
+        </div><!-- /.row -->
+
+
+	<div class="container marketing">
+
+		<!-- Three columns of text below the carousel -->
+		
+		<!-- /.row -->
+
+
+		<!-- START THE FEATURETTES -->
+
+		<hr class="featurette-divider">
+
+		<div class="row featurette">
+			<div class="col-md-7 order-md-2">
+				<h2 id="star_name">
+					Name:&nbsp&nbsp <span class="text-muted"></span>
+				</h2><br>
+				
+		        <h2 id="birth_year">Birth Year:&nbsp&nbsp</h2><br>
+				<h2 id="movies_acted">Titles of Films:&nbsp&nbsp</h2><br>
+				
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-fluid mx-auto" 
+					src="images/lixiaolong.jpg" alt="Generic placeholder image" >
+			</div>
+			
+		</div>
+		<hr class="featurette-divider">
+
+<script type="text/javascript" src="js/jQuery.min.js"></script>
+<script>
+ajaxrequest();
+function GetRequestPara() {
+	var url = location.search; // 获取url中"?"符后的字串
+	var RequestPara = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		strs = str.split("&");
+		for (let i = 0; i < strs.length; i++) {
+			RequestPara[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
+	}
+	return RequestPara;
+}
+
+function ajaxrequest(){
+	let request = GetRequestPara();
+	let parameter = {
+		star_name: request['star_name']
+	}
+	
+	$.ajax({
+
+		type : "GET",
+
+		url : "/Movie_Website/get_star_details",
+
+		data : parameter,
+
+		dataType : "json", 
+
+		success : function(value) {
+			
+			let movies =``;
+			for(let j=0;j<value.movies_acted.length;j++){
+				movies=movies+`<a onclick="moviedetails(event)" href="">${value.movies_acted[j]}</a>，`;
+			}
+			$('#star_name').append(`${value.star_name}`);
+			$('#birth_year').append(`${value.birth_year}`);
+			$('#movies_acted').append(`${movies}`);
+		
+		}		
+
+	});
+
+}
+
+function moviedetails(event){
+	event.preventDefault();
+	let title = $(event.target).html();
+	url= "MoviePage.html?title_first_character="+title;
+	window.location.href=url;
+}
+
+</script>
+<!-- FOOTER -->
+	<footer class="container">
+		<p class="float-right">
+			<a href="#">Back to top</a>
+		</p>
+		<p>&copy; 2017-2018 Next-Diemsnion Company, Inc. &middot;</p>
+	</footer>
+</div>
+</body>
+</html>

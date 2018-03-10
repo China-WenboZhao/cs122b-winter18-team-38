@@ -54,22 +54,22 @@ public class Log_In extends HttpServlet {
 		System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
 		// Verify CAPTCHA.
 		boolean valid = VerifyUtils.verify(gRecaptchaResponse);
-		if (!valid) {
-		    
-			JSONObject responseJsonObject = new JSONObject();
-			try {
-				responseJsonObject.put("status", "fail");
-				if (sameusername == true) {
-					responseJsonObject.put("message", "incorrect password");
-				} else {
-					responseJsonObject.put("message", "Please Do Recapcha First");
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			response.getWriter().write(responseJsonObject.toString());
-		    return;
-		}
+//		if (!valid) {
+//		    
+//			JSONObject responseJsonObject = new JSONObject();
+//			try {
+//				responseJsonObject.put("status", "fail");
+//				if (sameusername == true) {
+//					responseJsonObject.put("message", "incorrect password");
+//				} else {
+//					responseJsonObject.put("message", "Please Do Recapcha First");
+//				}
+//			} catch (JSONException e) {
+//				e.printStackTrace();
+//			}
+//			response.getWriter().write(responseJsonObject.toString());
+//		    return;
+//		}
 		
 
 		try {

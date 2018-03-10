@@ -17,6 +17,7 @@
 </head>
 <body class="bg-light">
 	<header>
+	<script type="text/javascript" src="js/jQuery.min.js"></script>
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 			<a class="navbar-brand" href="#">Next-Dimension</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -52,20 +53,17 @@
       ================================================== -->
 	<!-- Wrap the rest of the page in another container to center all the content. -->
 
+
+
+ <div class="text-center">
+        <h1>Detailed Movie Information</h1>      
+        </div><!-- /.row -->
+
+
 	<div class="container marketing">
 
 		<!-- Three columns of text below the carousel -->
-		<div class="row">
-			<div class="col-lg-5"></div>
-			<!-- /.col-lg-4 -->
-
-
-			<div class="col-lg-4"></div>
-
-
-
-
-		</div>
+		
 		<!-- /.row -->
 
 
@@ -75,44 +73,141 @@
 
 		<div class="row featurette">
 			<div class="col-md-7 order-md-2">
-				<h2 class="featurette-heading">
-					Alien <span class="text-muted"></span>
-				</h2>
-				<h1>sdfasdf</h1>
-				<p class="lead"></p>
+			<br>
+				<h3 id="title">
+					Title:&nbsp&nbsp <span class="text-muted"></span>
+				</h3><br>
+				<h3 id="movieid">ID:&nbsp&nbsp</h3><br>
+		        <h3 id="year">Year:&nbsp&nbsp</h3><br>
+				<h3 id="stars">Stars:&nbsp&nbsp</h3><br>
+				<h3 id="genres">Genres:&nbsp&nbsp</h3><br>
+				<h3 id="rate">Rate:&nbsp&nbsp</h3><br>
+				<h3 >Price:&nbsp&nbsp$15.99</h3><br>
+				
+				<button type="button" class="btn btn-primary btn-lg " onclick="add_to_cart()" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
+               
 			</div>
 			<div class="col-md-5">
-				<img class="featurette-image img-fluid mx-auto"
-					src="movie_image/alien.jpg" alt="Generic placeholder image">
+				<img class="featurette-image img-fluid mx-auto" 
+					src="images/2.jpg" alt="Generic placeholder image" >
 			</div>
+			
 		</div>
-
-		<!--    <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5 order-md-1">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-          </div>
-        </div>
--->
 		<hr class="featurette-divider">
 
+	<script>
+	
+	
+	var tmovieid;
+	var ttitle;
+	
+	ajaxrequest();
+	function GetRequestPara() {
+		var url = location.search; // 获取url中"?"符后的字串
+		var RequestPara = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for (let i = 0; i < strs.length; i++) {
+				RequestPara[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+			}
+		}
+		return RequestPara;
+	}
+
+	function ajaxrequest(){
+		let request = GetRequestPara();
+		if(request['page']==null){
+			request['page'] = "1";
+		}
+		if(request['sort']==null){
+			request['sort'] = "yearasc";
+		}
+		let parameter = {
+			page: request['page'],
+			sort: request['sort'],
+			title_first_character: request['title_first_character']
+		}
+		
+		$.ajax({
+
+			type : "GET",
+
+			url : "/Movie_Website/movie",
+
+			data : parameter,
+
+			dataType : "json", 
+
+			success : function(value) {
+				for(var i=0; i< value.length;i++)
+				{
+				let stars =``;
+				console.log(value[0].stars);
+				for(let j=0;j<value[0].stars.length;j++){
+					stars=stars+`<a onclick="stardetails(event)" href="">${value[0].stars[j]}</a>，`;
+				}
+				$('#movieid').append(`${value[0].movieid}`);
+				$('#title').append(`${value[0].title}`);
+				$('#year').append(`${value[0].year}`);
+				$('#director').append(`${value[0].director}`);
+				$('#stars').append(`${stars}`);
+				$('#genres').append(`${value[0].genres}`);
+				$('#rate').append(`${value[0].rate}`);
+				
+				tmovieid=value[0].movieid,
+				ttitle=value[0].title;
+				}
+			}		
+
+		});
+
+	}
+
+	function stardetails(event){
+		event.preventDefault();
+		let star_name = $(event.target).html();
+		url= "StarPage.html?star_name="+star_name;
+		window.location.href=url;
+	}
+	
+
+	
+    function add_to_cart(){
+
+		var temp = prompt("Please enter the amount(From 1 to 5):", "1");
+		if(temp == "1"||"2"||"3"||"4"||"5"){
+			var amount = temp;
+		}
+		
+
+
+		 console.log(tmovieid,ttitle);
+		var movie_info = {
+				id: tmovieid,
+				title: ttitle,
+				amount: amount
+		}
+
+		
+		$.ajax({
+
+			type : "GET",
+
+			url : "/Movie_Website/cart",
+
+			data : movie_info,
+
+			dataType : "json", 
+
+			success : function(value) {
+
+			}
+		});
+
+	}
+	
+	</script>
 		<!-- /END THE FEATURETTES -->
 
 	</div>
@@ -131,11 +226,15 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jQuery.min.js"></script>
 	<script src="js/jquery-3.2.1.slim.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/jquery-3.2.1.slim.min.js"><\/script>')</script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 	<script src="js/holder.min.js"></script>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>

@@ -57,6 +57,7 @@ public class GetTop20ByRating {
 		 }else if(sort.equals("titledesc") ) {
 			 query = query+"order by movies.title desc";
 		 }
+		 
 		 query2 = query;
 		 System.out.println(query2);
 		 query = query+ " limit 20 offset "+ (page-1)*20;
@@ -112,10 +113,17 @@ public class GetTop20ByRating {
 		}
 		
 		if(title!= null) {
+//			if(already_has_condition == true) {
+//				query = query + " and title like "+ "'%"+title+"%'" ;
+//			}else {
+//				query = query + " title like "+ "'%"+title+"%'";
+//			}
+//			already_has_condition = true;
 			if(already_has_condition == true) {
-				query = query + " and title like "+ "'%"+title+"%'" ;
+				query = query + " and MATCH (title) AGAINST ('" + title.toLowerCase() + "*' IN BOOLEAN MODE) " ;
 			}else {
-				query = query + " title like "+ "'%"+title+"%'";
+				query = query + " MATCH (title) AGAINST ('" + title.toLowerCase() + "*' IN BOOLEAN MODE) ";
+				
 			}
 			already_has_condition = true;
 		}
@@ -145,11 +153,15 @@ public class GetTop20ByRating {
 			 query = query+"order by movies.title asc";
 		 }else if(sort.equals("titledesc") ) {
 			 query = query+"order by movies.title desc";
+		 }else if(sort.equals("null"))
+		 {
+			 System.out.println("null sort");
 		 }
 		
 		 query2 = query;
 		 query = query+ " limit 20 offset "+ (page-1)*20;
 		 
+		 System.out.println(query);
 		Set_para();
 		return toplist;
 	}

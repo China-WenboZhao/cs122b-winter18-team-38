@@ -15,6 +15,14 @@
 
 <!-- Custom styles for this template -->
 <link href="css/cover.css" rel="stylesheet">
+
+<!-- Using jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- include jquery autocomplete JS  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
+    
+     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-light">
 	<header>
@@ -38,6 +46,14 @@
 
 				</ul>
 				<form class="form-inline mt-2 mt-md-0">
+				
+            <input class="form-control mr-sm-2" type="text" name="he" id="autocomplete"/>
+            <button class="btn btn-primary" type="submit"
+					id="autobutton">Search</button>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            
+     
+				
 					<button class="btn btn-primary" type="button"
 						onclick="window.location.href='Cart.html'">Checkout</button>
 				</form>
@@ -203,7 +219,9 @@
 
 	</div>
 	<!-- /.container -->
+	
 
+    <script src="js/Autocomplete.js"></script>
 
 	<!-- FOOTER -->
 	<footer class="container">
@@ -218,10 +236,16 @@
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/jquery-3.2.1.slim.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-3.2.1.slim.min.js"><\/script>')</script>
+
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 	<script src="js/holder.min.js"></script>
+	
+    <!-- Using jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+   
+    
 </body>
 </html>

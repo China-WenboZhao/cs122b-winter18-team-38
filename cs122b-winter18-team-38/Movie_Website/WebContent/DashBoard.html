@@ -75,21 +75,24 @@
 			</div>
 		</div>
 
-		<div class="py-5 text-center">
+		<div class="row d-flex justify-content-center">
+		<div class="col-md-8 order-md-1">
+		<div class="mb-3 text-center">
 			<br> <br>
 			<h2>Metadata of the Database</h2>
 			<p class="lead" id="metadata"></p>
 
-			<button class="btn btn-primary btn-lg btn-block" type="submit"
+			<button id="show_metadata" class="btn btn-primary btn-lg btn-block" type="submit"
 				onclick="showmeta()">Show Meta Data</button>
-
+</div>
+</div>
 		</div>
 
 
 
 
 		<div class="py-5 text-center">
-			<br> <br>
+
 
 			<h2>Add More Features to Movie</h2>
 			<p class="lead"></p>
@@ -249,33 +252,38 @@
 
     				success : function(value) {
     				//	console.log(JSON.stringify(value));
-    					
-    					for(let i = 0 ; i < value.length ; i++) {
-    						$("#metadata").append(value[i].Name);
-    						$("#metadata").append(`<br>Field: [ ${value[i].Field.join(', ')} ]<br>`);
-    						$("#metadata").append(`Type: [ ${value[i].Type.join(', ')} ]<br>`);
-    						$("#metadata").append(`Null: [ ${value[i].Null.join(', ')} ]<br>`);
-    						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
-    						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
-    						$("#metadata").append(`Extra: [ ${value[i].Extra.join(', ')} ]<br>`);
-    						$("#metadata").append('-----<br>');
-    						
-    						
-    					/*	console.log(value[i].Name);
-    						console.log(`Field: [ ${value[i].Field.join(', ')} ]`);
-    						console.log(`Type: [ ${value[i].Type.join(', ')} ]`);
-    						console.log(`Null: [ ${value[i].Null.join(', ')} ]`);
-    						console.log(`Key: [ ${value[i].Key.join(', ')} ]`);
-    						console.log(`Default: [ ${value[i].Default.join(', ')} ]`);
-    						console.log(`Extra: [ ${value[i].Extra.join(', ')} ]`);
-    						console.log('-----');*/
+    					if($("#metadata").html()===""){
+    						for(let i = 0 ; i < value.length ; i++) {
+        						$("#metadata").append(value[i].Name);
+        						$("#metadata").append(`<br>Field: [ ${value[i].Field.join(', ')} ]<br>`);
+        						$("#metadata").append(`Type: [ ${value[i].Type.join(', ')} ]<br>`);
+        						$("#metadata").append(`Null: [ ${value[i].Null.join(', ')} ]<br>`);
+        						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
+        						$("#metadata").append(`Key: [ ${value[i].Key.join(', ')} ]<br>`);
+        						$("#metadata").append(`Extra: [ ${value[i].Extra.join(', ')} ]<br>`);
+        						$("#metadata").append('-----<br>');
+        						$("#show_metadata").html("Hide Meta Data");
+        						
+        					/*	console.log(value[i].Name);
+        						console.log(`Field: [ ${value[i].Field.join(', ')} ]`);
+        						console.log(`Type: [ ${value[i].Type.join(', ')} ]`);
+        						console.log(`Null: [ ${value[i].Null.join(', ')} ]`);
+        						console.log(`Key: [ ${value[i].Key.join(', ')} ]`);
+        						console.log(`Default: [ ${value[i].Default.join(', ')} ]`);
+        						console.log(`Extra: [ ${value[i].Extra.join(', ')} ]`);
+        						console.log('-----');*/
+        					}
+    					}else {
+    						$("#metadata").html("");
+    						$("#show_metadata").html("Show Meta Data");
     					}
     					
     					
-    					for(let i=0; i< value.length;i++)
+    					
+    					/* for(let i=0; i< value.length;i++)
     					{
     						
-    					}	
+    					}	 */
     				}
     					
     				
