@@ -3,6 +3,7 @@ package JDBC;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -103,32 +104,29 @@ public class AutoComplete extends HttpServlet {
 			Statement select;
 			String querym,querys;
 			
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			// Connect to the test database
-			Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false",
-					"root", "Wenbo");
-			// Create an execute an SQL statement to select all of table"rating" records
-			
-			 select = connection.createStatement();
-			 querym = "select * from movies";
-			 querys = "select * from stars";
-			
-			ResultSet movielist = select.executeQuery(querym);
-			int i=1;
-			while (movielist.next()) {
-				String name = movielist.getString(2);
-				Movie.put(i,name);
-				i++;
-			}
-			
-			ResultSet starlist = select.executeQuery(querys);
-			int j=1;
-			while (starlist.next()) {
-				String name = starlist.getString(2);
-				
-				Star.put(j,name);
-				j++;
-			}
+			Connection connection = DataBaseConnect.getconn(); 
+
+	//no use		
+			 
+//			 querym = "select * from movies";
+//			 querys = "select * from stars";
+//			
+//			ResultSet movielist = select.executeQuery(querym);
+//			int i=1;
+//			while (movielist.next()) {
+//				String name = movielist.getString(2);
+//				Movie.put(i,name);
+//				i++;
+//			}
+//			
+//			ResultSet starlist = select.executeQuery(querys);
+//			int j=1;
+//			while (starlist.next()) {
+//				String name = starlist.getString(2);
+//				
+//				Star.put(j,name);
+//				j++;
+//			}
 			
 			
 			// setup the response json arrray
@@ -149,6 +147,8 @@ public class AutoComplete extends HttpServlet {
 			// TODO: in project 4, you should do full text search with MySQL to find the matches on movies and stars
 			
 			String isin = null;
+			
+			select = connection.createStatement();		
 			isin="SELECT * FROM movies WHERE MATCH (title) AGAINST ('"+query.toLowerCase()+"*' IN BOOLEAN MODE) LIMIT 5 OFFSET 1;";
 			ResultSet fullm = select.executeQuery(isin);
 			int num=0;

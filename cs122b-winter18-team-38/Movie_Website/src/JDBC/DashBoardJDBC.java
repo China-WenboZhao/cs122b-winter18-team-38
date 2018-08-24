@@ -18,13 +18,9 @@ public class DashBoardJDBC {
 
 	public int addmovie(String title, int year, String director, String star_name, int birth_year, String genre)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-
+	
 		
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		// Connect to the test database
-		Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false",
-				"root", "Wenbo");
-
+		Connection connection = DataBaseConnect.getconn();
 		
 		String maxmovieid = "";
 		String maxstarid = "";

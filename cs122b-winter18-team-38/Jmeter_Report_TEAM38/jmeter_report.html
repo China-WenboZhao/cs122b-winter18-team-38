@@ -1,0 +1,114 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: linen;
+}
+
+td {
+    border-top-style: solid;
+}
+</style>
+</head>
+<body>
+
+<table style="width:100%">
+  <tr style="font-weight:bold; background-color: orange">
+    <td width="300px">Single-instance version cases</td>
+    <td>Graph Results Screenshot</td>
+    <td>Average Query Time(ms)</td>
+    <td>Average Search Servlet Time(ms)</td>
+    <td>Average JDBC Time(ms)</td>
+    <td>Analysis</td>
+  </tr>
+  <tr>
+    <td>Case 1: HTTP/1 thread</td>
+    <td><img src="single 1 http all.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+    <td>14381912.21389090</td>
+    <td>14934213.12645233</td>
+    <td>14923421.64783234</td>
+    <td>Normal request for single user who visits the website per second</td>
+  </tr>
+  <tr>
+    <td>Case 2: HTTP/10 threads</td>
+    <td><img src="single 10 http all.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+    <td>91234138.65442343</td>
+    <td>92319808.68923994</td>
+    <td>92309847.75872125</td>
+    <td>10 users will increase the throughput</td>
+  </tr>
+  <tr>
+    <td>Case 3: HTTPS/10 threads</td>
+    <td><img src="single 10 https all.png" alt="Graph Results Screenshot Case 3" style="width:304px;height:228px;"></td>
+    <td>147234123.8379112</td>
+    <td>150129380.3487929</td>
+    <td>149938179.8291379</td>
+    <td>HTTPS will increase time</td>
+  </tr>
+  <tr>
+    <td>Case 4: HTTP/10 threads/No prepared statements</td>
+    <td><img src="graph_results_case4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>??</td>
+    <td>??</td>
+    <td>??</td>
+    <td>--</td>
+  </tr>
+  <tr>
+    <td>Case 5: HTTP/10 threads/No connection pooling</td>
+    <td><img src="graph_results_case4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>??</td>
+    <td>??</td>
+    <td>??</td>
+    <td>--</td>
+  </tr>
+
+</table> 
+
+
+<table style="width:100%">
+  <tr style="font-weight:bold; background-color: orange">
+    <td width="300px">Scaled version cases</td>
+    <td>Graph Results Screenshot</td>
+    <td>Average Query Time(ms)</td>
+    <td>Average Search Servlet Time(ms)</td>
+    <td>Average JDBC Time(ms)</td>
+    <td>Analysis</td>
+  </tr>
+  <tr>
+    <td>Case 1: HTTP/1 thread</td>
+    <td><img src="graph_results_case1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+    <td>15778283.74677652</td>
+    <td>16928171.38219873</td>
+    <td>16923781.21283791</td>
+    <td>Normal request for single user who visits the website per second</td>
+  </tr>
+  <tr>
+    <td>Case 2: HTTP/10 threads</td>
+    <td><img src="graph_results_case2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+<td>101293898.1238721</td>
+    <td>105423817.2183918</td>
+    <td>105419283.9812830</td>
+    <td>10 users will increase the throughput</td>   
+  </tr>
+  <tr>
+    <td>Case 3: HTTP/10 threads/No prepared statements</td>
+    <td><img src="graph_results_case4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>??</td>
+    <td>??</td>
+    <td>??</td>
+    <td>--</td>
+  </tr>
+  <tr>
+    <td>Case 4: HTTP/10 threads/No connection pooling</td>
+    <td><img src="graph_results_case4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>??</td>
+    <td>??</td>
+    <td>??</td>
+    <td>--</td>
+  </tr>
+
+</table> 
+
+</body>
+</html>

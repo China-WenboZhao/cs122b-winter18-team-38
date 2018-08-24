@@ -21,12 +21,9 @@ public class GetCreditCardInfo {
 
 	public LinkedList<Entity.CreditCardInfo> getCreditCardInfo()
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		// Incorporate mySQL driver
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		// Connect to the test database
-		Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false",
-				"root", "Wenbo");
-		// Create an execute an SQL statement to select all of table"rating" records
+		
+		Connection connection = DataBaseConnect.getconn();
+	
 
 		select = connection.createStatement();
 		query = "Select * from creditcards";

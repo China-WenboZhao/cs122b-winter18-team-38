@@ -15,6 +15,7 @@ public class AddStars {
 	Statement select;
 	String query;
 	ResultSet result;
+	Connection connection;
 
 	public AddStars() {
 		// TODO Auto-generated constructor stub
@@ -23,10 +24,7 @@ public class AddStars {
 	public LinkedList<String> getStars()
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		// Incorporate mySQL driver
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		// Connect to the test database
-		Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false",
-				"root", "Wenbo");
+		 connection = DataBaseConnect.getconn();
 		// Create an execute an SQL statement to select all of table"rating" records
 
 		select = connection.createStatement();
@@ -43,15 +41,10 @@ public class AddStars {
 	
 	public boolean addStar(String starname, int birthdate)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		// Incorporate mySQL driver
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		// Connect to the test database
-		Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false",
-				"root", "Wenbo");
-		// Create an execute an SQL statement to select all of table"rating" records
+	
         //if exsit
 		select = connection.createStatement();
-    	query = "Select * from stars";
+		query = "Select * from stars";
 		result = select.executeQuery(query);
 		starnamelist = new LinkedList<String>();
 		while (result.next()) {

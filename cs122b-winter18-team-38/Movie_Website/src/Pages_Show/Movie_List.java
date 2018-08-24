@@ -1,10 +1,13 @@
 package Pages_Show;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +37,7 @@ public class Movie_List extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		long query_startTime = System.nanoTime();
 
 		JSONArray array = new JSONArray();
 		String temp= request.getParameter("page");
@@ -47,6 +51,7 @@ public class Movie_List extends HttpServlet {
 		String sort = request.getParameter("sort");
 		System.out.println("sort:"+sort);
 		
+		long JDBC_startTime = System.nanoTime();
 		try {
 			if(title ==null& year == null& director ==null& star_name == null & genre == null & title_first_character ==null) {
 				mlist = GetMovie.getMovie(page,sort);
@@ -61,6 +66,7 @@ public class Movie_List extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		long JDBC_endTime = System.nanoTime();
 		for (int i = 0; i < mlist.size(); i++) {
 			JSONObject resultobj = new JSONObject();
 			try {
@@ -84,6 +90,21 @@ public class Movie_List extends HttpServlet {
 //		System.out.println("array"+array.toString());
 		pw.write(array.toString());
 		pw.flush();
+		long query_endTime = System.nanoTime();
+		long query_elapsedTime = query_endTime - query_startTime;
+		long JDBC_elapsedTime = JDBC_endTime - JDBC_startTime;
+		
+		ServletContext sc= this.getServletContext();
+		String Path = sc.getRealPath("/");
+		Path = Path+"Log.txt";
+		System.out.println(Path);
+		FileWriter out = new FileWriter(Path,true);
+		BufferedWriter bw = new BufferedWriter(out); 
+		String str = query_elapsedTime+","+JDBC_elapsedTime+"\n";
+		bw.append(str);
+		bw.close();
+		out.close();
+		
 	}
 
 	@Override
